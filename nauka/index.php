@@ -21,7 +21,7 @@ if($_GET['alert']=='logout')
 {
   echo '<div class="alert alert-danger">Żegnaj</div>';
 }
-
+</br>
 ?>
 
 <!DOCTYPE html>
