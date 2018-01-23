@@ -1,11 +1,13 @@
 <?php
 session_start();
-error_reporting(0);
-
+include_once('connection.php');
 
 if($_POST['send']=='Zaloguj')
 {
-    if(($_POST['login']==$login) && ($_POST['pass']==$pass))
+  $check = new  dbOperations();
+  $wynik = $check->userCheck($_POST['login'], $_POST['pass']);
+
+    if($wynik == true)
     {
         echo '<div class="alert alert-success">Witaj admin.</div>';
         $_SESSION['czy_zalogowany'] = true;
