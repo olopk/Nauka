@@ -1,8 +1,6 @@
 <?php
 session_start();
 error_reporting(0);
-$login='admin';
-$pass='secretpass';
 
 
 if($_POST['send']=='Zaloguj')
@@ -21,7 +19,6 @@ if($_GET['alert']=='logout')
 {
   echo '<div class="alert alert-danger">Żegnaj</div>';
 }
-</br>
 ?>
 
 <!DOCTYPE html>

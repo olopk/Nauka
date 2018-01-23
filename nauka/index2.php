@@ -39,5 +39,3 @@ $olek->wynagrodzenie='30000';
 $olek->get_name();
 
 $olek->get_income();
-
-gowno
