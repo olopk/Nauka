@@ -5,7 +5,7 @@ class polaczenie {
   private $servername ='localhost';
   private $username ='root';
   private $password ='';
-  private $dbname ='usertb';
+  private $dbname ='nauka';
   public $conn = '';
 
 function __construct(){
@@ -15,6 +15,10 @@ function __construct(){
     die ("Connection refused " . connect_error);
     }
   }
+
+public function getData($sql){
+           return $this->conn->query($sql);
+       }
 
 }
 
@@ -31,10 +35,13 @@ class dbOperations {
   }
 
 public function userCheck($username, $password){
-  $zapytanie = "SELECT idUser FROM usertb WHERE username='".$username."' and password='".$password."'";
-  $result = $this->dbConn->mysqli_query($zapytanie);
-  if(!result){
-    die(mysqli_error());
+  $zapytanie = "SELECT idUser FROM usertb WHERE username='".$username."' and userpass='".$password."'";
+  $result = $this->dbConn->getData($zapytanie);
+  if(!$result){
+    die("mysqli_error");
+  }
+  else {
+    echo "udalo sie";
   }
   if($result->num_rows > 0){
     return true;

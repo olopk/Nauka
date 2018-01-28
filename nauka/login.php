@@ -13,3 +13,5 @@
     <button role="button" type="submit" class="btn btn-primary" name="send" value="Zaloguj">Zaloguj</button>
 
 </form>
+
+<a href="http://localhost/Nauka/nauka/index.php?strona=rejestracja"<span class="btn btn-primary">Zarejestruj sie</span></a>

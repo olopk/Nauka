@@ -4,7 +4,8 @@ include_once('connection.php');
 
 if($_POST['send']=='Zaloguj')
 {
-  $check = new  dbOperations();
+  $polaczeni = new polaczenie();
+  $check = new dbOperations($polaczeni);
   $wynik = $check->userCheck($_POST['login'], $_POST['pass']);
 
     if($wynik == true)
@@ -21,6 +22,14 @@ if($_GET['alert']=='logout')
 {
   echo '<div class="alert alert-danger">Żegnaj</div>';
 }
+
+if($_POST['send']=='rejestruj')
+{
+  if((strlen($_POST['imie']) < 3) || (strlen($_POST['imie']) > 16)){
+    $_SESSION['e_imie'] = 'imie powinno miec nie mniej niz 3 i nie wiecej niz 16 znakow';
+  }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -50,6 +59,9 @@ if($_GET['alert']=='logout')
             break;
         case 'restricted':
             include_once ('restricted.php');
+            break;
+        case 'rejestracja':
+            include_once ('register.php');
             break;
         default:
             include_once ('home.php');

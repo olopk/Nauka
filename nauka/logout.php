@@ -4,7 +4,7 @@
 
 <?php
 
-    header("Location: http://localhost/nauka/index.php?strona=logowanie&alert=logout");
+    header("Location: http://localhost/Nauka/nauka/index.php?strona=logowanie&alert=logout");
 
 ?>
 <?php
