@@ -25,9 +25,64 @@ if($_GET['alert']=='logout')
 
 if($_POST['send']=='rejestruj')
 {
-  if((strlen($_POST['imie']) < 3) || (strlen($_POST['imie']) > 16)){
-    $_SESSION['e_imie'] = 'imie powinno miec nie mniej niz 3 i nie wiecej niz 16 znakow';
+  $_SESSION['FLAGA'] = true;
+  if(!isset($_POST['imie'])){
+    $_SESSION['e_imie'] = 'Imie jest wymagane';
+    $_SESSION['FLAGA'] = false;
   }
+  else {
+    if((strlen($_POST['imie']) < 3) || (strlen($_POST['imie']) > 16)){
+      $_SESSION['e_imie'] = 'imie powinno miec nie mniej niz 3 i nie wiecej niz 16 znakow';
+      $_SESSION['FLAGA'] = false;
+    }
+  }
+  if(!isset($_POST['email'])){
+    $_SESSION['e_email'] = 'adres email jest wymagany';
+    $_SESSION['FLAGA'] = false;
+  }
+  else {
+    $email = test_input($_POST['email']);
+    if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+      $_SESSION['e_email'] = 'Email nie spelnia kryteriow ogórku';
+      $_SESSION['FLAGA'] = false;
+    }
+  }
+  if(!isset($_POST['nick'])){
+    $_SESSION['e_nick'] = 'Nick jest wymagany';
+    $_SESSION['FLAGA'] = false;
+  }
+  else {
+    $polaczeni = new polaczenie();
+    $check = new dbOperations($polaczeni);
+    $nickCheck = $check->nickCheck($_POST['nick']);
+    if($nickCheck){
+      $_SESSION['e_nick'] = 'Wybrany nick jest zajety, sprobuj czegos innego';
+      $_SESSION['FLAGA'] = false;
+    }
+  }
+  if(!isset($_POST['pass1'])){
+    $_SESSION['e_pass1'] = 'Podaj haslo';
+    $_SESSION['FLAGA'] = false;
+  }
+  if(!isset($_POST['pass2'])){
+    $_SESSION['e_pass2'] = 'Powtorz haslo';
+    $_SESSION['FLAGA'] = false;
+  }
+
+  $checkPass = test_input($_POST['pass1']);
+  if(!$checkPass){
+    $_SESSION['e_pass1'] = 'Podane haslo zawiera zabronione znaki';
+    $_SESSION['FLAGA'] = false;
+  }
+  else {
+    if($_POST['pass1'] !== $_POST['pass2']){
+        $_SESSION['e_pass2'] = 'Powtorzone haslo nie zgadza sie z tym wyzej';
+        $_SESSION['FLAGA'] = false;
+    }
+  }
+
+
+
 }
 
 ?>
