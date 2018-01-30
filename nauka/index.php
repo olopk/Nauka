@@ -47,7 +47,7 @@ if($_POST['send']=='rejestruj')
       $_SESSION['FLAGA'] = false;
     }
   }
-  if(!isset($_POST['nick'])){
+  if(empty($_POST['nick'])){
     $_SESSION['e_nick'] = 'Nick jest wymagany';
     $_SESSION['FLAGA'] = false;
   }
@@ -60,26 +60,44 @@ if($_POST['send']=='rejestruj')
       $_SESSION['FLAGA'] = false;
     }
   }
-  if(!isset($_POST['pass1'])){
-    $_SESSION['e_pass1'] = 'Podaj haslo';
-    $_SESSION['FLAGA'] = false;
-  }
-  if(!isset($_POST['pass2'])){
-    $_SESSION['e_pass2'] = 'Powtorz haslo';
-    $_SESSION['FLAGA'] = false;
-  }
-
-  $checkPass = test_input($_POST['pass1']);
-  if(!$checkPass){
-    $_SESSION['e_pass1'] = 'Podane haslo zawiera zabronione znaki';
+  if(empty($_POST['pass1'])){
+    $_SESSION['e_pass1'] = 'Haslo musi zawierac conajmniej 1 znak';
     $_SESSION['FLAGA'] = false;
   }
   else {
-    if($_POST['pass1'] !== $_POST['pass2']){
-        $_SESSION['e_pass2'] = 'Powtorzone haslo nie zgadza sie z tym wyzej';
+    if(empty($_POST['pass2'])){
+      $_SESSION['e_pass2'] = 'Powtorz haslo';
+      $_SESSION['FLAGA'] = false;
+    }
+    else {
+      $checkPass = test_input($_POST['pass1']);
+      if(!$checkPass){
+        $_SESSION['e_pass1'] = 'Podane haslo zawiera zabronione znaki';
         $_SESSION['FLAGA'] = false;
+      }
+      else {
+        if($_POST['pass1'] !== $_POST['pass2']){
+            $_SESSION['e_pass2'] = 'Powtorzone haslo nie zgadza sie z tym wyzej';
+            $_SESSION['FLAGA'] = false;
+        }
+      }
     }
   }
+
+  if(!isset($_POST['pudelko'])){
+    $_SESSION['e_pudelko'] = 'Zaznacz, ze akceptujesz regulamin';
+    $_SESSION['FLAGA'] = false;
+  }
+
+  if($_SESSION['FLAGA'] == true){
+    $polaczenie = new polaczenie();
+    $obiekt = new dbOperations($polaczenie);
+    $dodajUsera = $obiekt->userAdd($_POST['imie'], $_POST['nick'], $_POST['pass1'], $_POST['email']);
+
+  }
+    else {
+      echo 'nie udalo sie';
+    }
 
 
 

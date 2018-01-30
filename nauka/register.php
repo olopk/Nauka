@@ -57,6 +57,13 @@
   <div class="form-group">
     <label>Akceptuje regulamin
     <input type="checkbox" name="pudelko" class="form-control" /></label>
+    <?php
+    {
+      if(isset($_SESSION['e_pudelko']))
+      echo '<div class="alert alert-danger">'.$_SESSION['e_pudelko'].'</div>';
+      unset($_SESSION['e_pudelko']);
+    }
+    ?>
   </div>
     <input class="btn btn-primary" type="submit" name="send" value="rejestruj"/>
 </form>
