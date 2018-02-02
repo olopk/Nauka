@@ -94,6 +94,8 @@ if($_POST['send']=='rejestruj')
     $obiekt = new dbOperations($polaczenie);
     $dodajUsera = $obiekt->userAdd($_POST['imie'], $_POST['nick'], $_POST['pass1'], $_POST['email']);
 
+    
+
   }
     else {
       echo 'nie udalo sie';
